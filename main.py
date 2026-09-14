@@ -14,8 +14,8 @@ def convert(temp_f: float) -> float:
 
 def main():
     while True:
-        frg_user_temp = user_input_temp()
-        cels_temp = convert_f_to_c(frg_user_temp)
+        frg_user_temp = input()
+        cels_temp = convert(frg_user_temp)
 
         print(f"Temperature in C: {cels_temp}")
 

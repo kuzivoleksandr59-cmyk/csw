@@ -1,4 +1,4 @@
-def input() -> int:
+def input_t() -> int:
     while True:
         try:
             frg_temp = int(input("Enter temperature in F: "))
@@ -14,7 +14,7 @@ def convert(temp_f: float) -> float:
 
 def main():
     while True:
-        frg_user_temp = input()
+        frg_user_temp = input_t()
         cels_temp = convert(frg_user_temp)
 
         print(f"Temperature in C: {cels_temp}")

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "bracket-validator-yourname"
+name = "bracket-validator-oleksandr"
 version = "0.1.0"
 authors = [
   { name="Oleksandr", email="oleksandr.kuziv.25@cnu.edu.ua" },

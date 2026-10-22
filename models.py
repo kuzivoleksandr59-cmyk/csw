@@ -26,10 +26,10 @@ class HourlyEmployee(Employee):
     self.hourly_rate = hourly_rate
 
   def calculate_salary(self) -> float:
-    return 20.8 * 8 * self.hourly_rate  #
+    return 20.8 * 8 * self.hourly_rate
 
   def calculate_taxes(self) -> float:
-    return self.calculate_salary() * (0.18 + 0.015)  # ПДФО 18% + ВЗ 1.5%
+    return self.calculate_salary() * (0.18 + 0.015)
 
 
 class FixedSalaryEmployee(Employee):
@@ -41,10 +41,10 @@ class FixedSalaryEmployee(Employee):
     self.monthly_salary = monthly_salary
 
   def calculate_salary(self) -> float:
-    return self.monthly_salary  #
+    return self.monthly_salary
 
   def calculate_taxes(self) -> float:
-    return self.monthly_salary * (0.18 + 0.015)  # ПДФО 18% + ВЗ 1.5%[cite: 1]
+    return self.monthly_salary * (0.18 + 0.015)
 
 
 class FopEmployee(Employee):
@@ -62,12 +62,12 @@ class FopEmployee(Employee):
     self.group = group
 
   def calculate_salary(self) -> float:
-    return (20.8 * 8 * self.hourly_rate) * 1.10  # Погодинка + 10%[cite: 1]
+    return (20.8 * 8 * self.hourly_rate) * 1.10
 
   def calculate_taxes(self) -> float:
     return (
         self.calculate_salary() * 0.05
-    ) + 1760  # ЄП 5% + ЄСВ 1760 грн щомісяця[cite: 1]
+    ) + 1760
 
 
 class SelfEmployedContractor(Employee):
@@ -85,9 +85,9 @@ class SelfEmployedContractor(Employee):
     self.lines_written = lines_written
 
   def calculate_salary(self) -> float:
-    return self.price_per_line * self.lines_written  #[cite: 1]
+    return self.price_per_line * self.lines_written
 
   def calculate_taxes(self) -> float:
     return (
         self.calculate_salary() * (0.18 + 0.015)
-    ) + 1760  # ПДФО 18% + ВЗ 1.5% + ЄСВ 1760[cite: 1]
+    ) + 1760

@@ -49,5 +49,4 @@ def generate_employees(count: int = 20) -> list[Employee]:
 
 
 def get_sorted_employees(employees: list[Employee]) -> list[Employee]:
-  # Сортування: за зменшенням ЗП, при однаковій ЗП — за алфавітом прізвища[cite: 1]
   return sorted(employees, key=lambda e: (-e.calculate_salary(), e.last_name))

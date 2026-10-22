@@ -5,7 +5,6 @@ from utils import generate_employees, get_sorted_employees
 
 @click.group()
 def cli():
-  """Головне меню CLI для управління працівниками підприємства."""
   pass
 
 
@@ -14,7 +13,6 @@ def cli():
     '--count', default=15, help='Кількість робітників для генерації'
 )
 def list_all(count):
-  """Вивести всіх робітників, відсортованих за зарплатою та прізвищем."""
   employees = generate_employees(count)
   sorted_employees = get_sorted_employees(employees)
 
@@ -35,7 +33,6 @@ def list_all(count):
 @click.option('--min-income', type=float, help='Мінімальний рівень доходу')
 @click.option('--max-tax', type=float, help='Максимальний розмір податку')
 def filter_fop(group, min_income, max_tax):
-  """Фільтрація ФОП за групою, доходом та сплаченими податками."""
   employees = generate_employees(30)
   fops = [e for e in employees if isinstance(e, FopEmployee)]
 

@@ -1,18 +1,20 @@
 from datetime import datetime
 import uuid
-from models7 import TaskModel, TaskStatus
+
+from models8 import TaskStatus
+from repository import TaskRepository
 from views import TaskView
 
 
 class TaskController:
-    def __init__(self, model: TaskModel, view: TaskView) -> None:
-        self.model = model
+    def __init__(self, repository: TaskRepository, view: TaskView) -> None:
+        self.repository = repository
         self.view = view
 
     def add_task(self, description: str, schedule_str: str) -> None:
         try:
             schedule_for = datetime.strptime(schedule_str, "%Y-%m-%d %H:%M")
-            task = self.model.create_task(description, schedule_for)
+            task = self.repository.create_task(description, schedule_for)
             self.view.display_message(f"Задачу створено успішно. ID: {task.id}")
         except ValueError:
             self.view.display_error("Невірний формат дати. Використовуйте: РРРР-ММ-ДД ГГ:ХХ")
@@ -30,7 +32,7 @@ class TaskController:
                 self.view.display_error("Некоректний вибір статусу.")
                 return
 
-            task = self.model.update_task_status(task_id, new_status)
+            task = self.repository.update_task_status(task_id, new_status)
             if task:
                 self.view.display_message("Статус задачі оновлено.")
             else:
@@ -41,7 +43,7 @@ class TaskController:
     def delete_task(self, task_id_str: str) -> None:
         try:
             task_id = uuid.UUID(task_id_str)
-            if self.model.delete_task(task_id):
+            if self.repository.delete_task(task_id):
                 self.view.display_message("Задачу успішно видалено.")
             else:
                 self.view.display_error("Задачу з таким ID не знайдено.")
@@ -57,7 +59,7 @@ class TaskController:
 
             desc = new_description.strip() if new_description.strip() else None
 
-            task = self.model.update_task_details(task_id, description=desc, schedule_for=schedule_for)
+            task = self.repository.update_task_details(task_id, description=desc, schedule_for=schedule_for)
             if task:
                 self.view.display_message("Задачу відредаговано.")
             else:
@@ -66,7 +68,7 @@ class TaskController:
             self.view.display_error("Помилка даних або формату дати (використовуйте РРРР-ММ-ДД ГГ:ХХ).")
 
     def show_all_tasks(self) -> None:
-        tasks = self.model.get_all_tasks()
+        tasks = self.repository.get_all_tasks()
         self.view.display_tasks(tasks)
 
     def filter_tasks_by_status(self, status_choice: str) -> None:
@@ -79,13 +81,13 @@ class TaskController:
         if not status:
             self.view.display_error("Некоректний вибір статусу.")
             return
-        tasks = self.model.filter_by_status(status)
+        tasks = self.repository.filter_by_status(status)
         self.view.display_tasks(tasks)
 
     def show_task_by_id(self, task_id_str: str) -> None:
         try:
             task_id = uuid.UUID(task_id_str)
-            task = self.model.get_task_by_id(task_id)
+            task = self.repository.get_task_by_id(task_id)
             self.view.display_task(task)
         except ValueError:
             self.view.display_error("Некоректний формат UUID.")
